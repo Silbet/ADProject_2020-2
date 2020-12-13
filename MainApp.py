@@ -1,5 +1,4 @@
 import sys
-import pickle
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtCore import *
@@ -17,9 +16,7 @@ class TodoListApp(QWidget):
         self.readSubjectDB()
         self.showSubjectDB()
 
-
     def initUI(self):
-
         # 추가, 완료, 수정 버튼
         addButton = QPushButton('추가', self)
         delButton = QPushButton('삭제', self)
@@ -29,10 +26,8 @@ class TodoListApp(QWidget):
         delButton.clicked.connect(lambda: self.delButtonClicked())
         sortButton.clicked.connect(lambda: self.sortButtonClicked())
 
-
         # 학번, 이름
         nameLabel = QLabel('202030xx 이OO', self)
-
 
         # 할 일 목록 만들기
         self.todoList = QTableView(self)
@@ -48,9 +43,7 @@ class TodoListApp(QWidget):
         self.todoList.setColumnWidth(0, 150)
         self.todoList.setColumnWidth(1, 80)
 
-
-        # Layout배치
-
+        # Layout 배치
         buttonBox = QHBoxLayout()
         buttonBox.addWidget(addButton)
         buttonBox.addWidget(delButton)
@@ -73,8 +66,6 @@ class TodoListApp(QWidget):
         self.setLayout(mainLayout)
         self.setGeometry(300, 300, 366, 300)
         self.setWindowTitle("To-do List")  # 타이틀 바꾸기
-        # self.show()
-
 
     def addButtonClicked(self):
         dlg = sInputDialog()
@@ -88,9 +79,7 @@ class TodoListApp(QWidget):
                 pass
         return
 
-
     def delButtonClicked(self):
-
         text, ok = QInputDialog.getText(self, '삭제', '삭제할 과제명을 입력해 주세요:')
 
         if ok:
@@ -106,14 +95,11 @@ class TodoListApp(QWidget):
         self.showSubjectDB()
         return
 
-
     def sortButtonClicked(self):
         self.subjectDB = subjectSort(self.subjectDB)
         self.subjectDB = sorted(self.subjectDB, key=lambda person: person['orderScore'])
-        #print(self.subjectDB)
         self.showSubjectDB()
         return
-
 
     # DB에서 정보를 불러들이는 함수
     def readSubjectDB(self):
@@ -140,7 +126,6 @@ class TodoListApp(QWidget):
         # 테이블뷰에 subjectDB에 저장된 정보를 입력함
         row = 0
         for p in self.subjectDB:
-            #print(p)
             col = 0
             self.text.insertRows(self.text.rowCount(), 1)
             for attr in p:
